@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Hide AddressBar</title>
+    <link rel="stylesheet" href="css/styles.css"> 
+  </head>
+
+  <body>
+    <div>
+      <h1>Hide the address bar on mobile</h1>
+    </div>
+
+    <!-- Turn-key SVG to toggle full-screen mode -->
+    <svg id="toggle-full-screen"
+    xmlns="http://www.w3.org/2100/svg"
+    viewBox="0 0 100 100"
+
+    onclick="javascript:{this.classList.toggle('collapse');if(!document.fullscreenElement){document.documentElement.requestFullscreen()}else if(document.exitFullscreen){document.exitFullscreen();}}"
+    >
+    <style>
+      svg#toggle-full-screen {
+        --size: 15vmin;
+        --bColor: #9999;
+        --bWidth: 0.5vmin;
+        width: var(--size);
+        height: var(--size);
+        border-color: var(--bColor);
+        border-width: var(--bWidth);
+        border-style: outset;
+        box-sizing: border-box;
+      }
+
+      svg#toggle-full-screen:active {
+        border-style: inset;
+      }
+
+      svg#toggle-full-screen path {
+        fill: #ccc;
+      }
+
+      svg#toggle-full-screen:active path {
+        fill: #fff;
+        user-select: none;
+      }
+
+      svg#toggle-full-screen.collapse path.expand {
+        opacity: 0;
+      }
+
+      svg#toggle-full-screen:not(.collapse) path.collapse {
+        opacity: 0;
+      }
+    </style>
+
+    <rect
+      width="100"
+      height="100"
+      stroke="white"
+      stroke-width="1"
+      opacity="0"
+    />
+
+    <path
+      class="collapse"
+      d="
+        M 45 55
+        v 27
+        a 5 5 0 0 1 -10 0
+        v -10
+        l -21 21
+        a 5 5 0 0 1 -7.07 -7.07
+        l 21 -21
+        h -10
+        a 5 5 0 0 1 0 -10
+        Z
+
+        M 55 45
+        v -27
+        a 5 5 0 0 1 10 0
+        v 10
+        l 21 -21
+        a 5 5 0 0 1 7.07 7.07
+        l -21 21
+        h 10
+        a 5 5 0 0 1 0 10
+        Z
+      "
+    />
+
+    <path
+      class="expand"
+      d="
+        M 95 5
+        v 27
+        a 5 5 0 0 1 -10 0
+        v -10
+        l -21 21
+        a 5 5 0 0 1 -7.07 -7.07
+        l 21 -21
+        h -10
+        a 5 5 0 0 1 0 -10
+        Z
+
+        M 5 95
+        v -27
+        a 5 5 0 0 1 10 0
+        v 10
+        l 21 -21
+        a 5 5 0 0 1 7.07 7.07
+        l -21 21
+        h 10
+        a 5 5 0 0 1 0 10
+        Z
+      "
+    />
+    </svg>
+  </body>
+</html>
