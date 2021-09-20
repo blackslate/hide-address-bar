@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Hide AddressBar</title>
-    <link rel="stylesheet" href="css/styles.css"> 
+    <link rel="stylesheet" href="css/styles.css">
   </head>
 
   <body>
@@ -11,109 +11,164 @@
       <h1>Hide the address bar on mobile</h1>
     </div>
 
-    <!-- Turn-key SVG to toggle full-screen mode -->
-    <svg id="toggle-full-screen"
-    xmlns="http://www.w3.org/2100/svg"
-    viewBox="0 0 100 100"
-
-    onclick="javascript:{this.classList.toggle('collapse');if(!document.fullscreenElement){document.documentElement.requestFullscreen()}else if(document.exitFullscreen){document.exitFullscreen();}}"
+    <!-- All-in-one SVG to toggle full-screen mode -->
+    <svg
+      id="fullscreen-btn"
+      xmlns="http://www.w3.org/2100/svg"
+      viewBox="0 0 100 100"
+      onclick="javascript:toggleFullScreen()"
     >
-    <style>
-      svg#toggle-full-screen {
-        --size: 15vmin;
-        --bColor: #9999;
-        --bWidth: 0.5vmin;
-        width: var(--size);
-        height: var(--size);
-        border-color: var(--bColor);
-        border-width: var(--bWidth);
-        border-style: outset;
-        box-sizing: border-box;
-      }
+      <style>
+        svg#fullscreen-btn {
+          --size: 15vmin;
+          --bgColor: #111;
+          --bgActive: #000;
+          --bColor: #9999;
+          --bWidth: 0.5vmin;
+          --fill: #ccc;
+          --active: #fff;
+          width: var(--size);
+          height: var(--size);
+          background-color: var(--bgColor);
+          border-color: var(--bColor);
+          border-width: var(--bWidth);
+          border-style: outset;
+          box-sizing: border-box;
+        }
 
-      svg#toggle-full-screen:active {
-        border-style: inset;
-      }
+        svg#fullscreen-btn:active {
+          background-color: var(--bgActive);
+        }
 
-      svg#toggle-full-screen path {
-        fill: #ccc;
-      }
+        svg#fullscreen-btn:active {
+          border-style: inset;
+        }
 
-      svg#toggle-full-screen:active path {
-        fill: #fff;
-        user-select: none;
-      }
+        svg#fullscreen-btn path {
+          fill: var(--fill);
+          user-select: none;
+        }
 
-      svg#toggle-full-screen.collapse path.expand {
-        opacity: 0;
-      }
+        svg#fullscreen-btn:active path {
+          fill: var(--active);
+        }
 
-      svg#toggle-full-screen:not(.collapse) path.collapse {
-        opacity: 0;
-      }
-    </style>
+        /* Hide collapse when not fullscreen */
+        html:not(:-moz-full-screen) svg#fullscreen-btn path.collapse {
+          opacity: 0;
+        }
+        html:not(:-webkit-full-screen) svg#fullscreen-btn path.collapse {
+          opacity: 0;
+        }
+        html:not(:-ms-fullscreen) svg#fullscreen-btn path.collapse {
+          opacity: 0;
+        }
+        html:not(:fullscreen) svg#fullscreen-btn path.collapse {
+          opacity: 0;
+        }
 
-    <rect
-      width="100"
-      height="100"
-      stroke="white"
-      stroke-width="1"
-      opacity="0"
-    />
+        /* Hide expand when fullscreen */
+        html:-moz-full-screen svg#fullscreen-btn path.expand {
+          opacity: 0;
+        }
+        html:-webkit-full-screen svg#fullscreen-btn path.expand {
+          opacity: 0;
+        }
+        html:-ms-fullscreen svg#fullscreen-btn path.expand {
+          opacity: 0;
+        }
+        html:fullscreen svg#fullscreen-btn path.expand {
+          opacity: 0;
+        }
+      </style>
 
-    <path
-      class="collapse"
-      d="
-        M 45 55
-        v 27
-        a 5 5 0 0 1 -10 0
-        v -10
-        l -21 21
-        a 5 5 0 0 1 -7.07 -7.07
-        l 21 -21
-        h -10
-        a 5 5 0 0 1 0 -10
-        Z
+      <rect
+        width="100"
+        height="100"
+        stroke="white"
+        stroke-width="1"
+        opacity="0"
+      />
 
-        M 55 45
-        v -27
-        a 5 5 0 0 1 10 0
-        v 10
-        l 21 -21
-        a 5 5 0 0 1 7.07 7.07
-        l -21 21
-        h 10
-        a 5 5 0 0 1 0 10
-        Z
-      "
-    />
+      <path
+        class="collapse"
+        d="
+          M 45 55
+          v 27
+          a 5 5 0 0 1 -10 0
+          v -10
+          l -21 21
+          a 5 5 0 0 1 -7.07 -7.07
+          l 21 -21
+          h -10
+          a 5 5 0 0 1 0 -10
+          Z
 
-    <path
-      class="expand"
-      d="
-        M 95 5
-        v 27
-        a 5 5 0 0 1 -10 0
-        v -10
-        l -21 21
-        a 5 5 0 0 1 -7.07 -7.07
-        l 21 -21
-        h -10
-        a 5 5 0 0 1 0 -10
-        Z
+          M 55 45
+          v -27
+          a 5 5 0 0 1 10 0
+          v 10
+          l 21 -21
+          a 5 5 0 0 1 7.07 7.07
+          l -21 21
+          h 10
+          a 5 5 0 0 1 0 10
+          Z
+        "
+      />
 
-        M 5 95
-        v -27
-        a 5 5 0 0 1 10 0
-        v 10
-        l 21 -21
-        a 5 5 0 0 1 7.07 7.07
-        l -21 21
-        h 10
-        a 5 5 0 0 1 0 10
-        Z
-      "
-    />
+      <path
+        class="expand"
+        d="
+          M 95 5
+          v 27
+          a 5 5 0 0 1 -10 0
+          v -10
+          l -21 21
+          a 5 5 0 0 1 -7.07 -7.07
+          l 21 -21
+          h -10
+          a 5 5 0 0 1 0 -10
+          Z
+
+          M 5 95
+          v -27
+          a 5 5 0 0 1 10 0
+          v 10
+          l 21 -21
+          a 5 5 0 0 1 7.07 7.07
+          l -21 21
+          h 10
+          a 5 5 0 0 1 0 10
+          Z
+        "
+      />
+
+      <script>
+        function toggleFullScreen() {
+          var docElm = document.documentElement;
+          if (docElm.requestFullscreen) {
+              docElm.requestFullscreen();
+          } else if (docElm.mozRequestFullScreen) {
+              docElm.mozRequestFullScreen();
+          } else if (docElm.webkitRequestFullScreen) {
+              docElm.webkitRequestFullScreen();
+          } else if (docElm.msRequestFullscreen) {
+              docElm.msRequestFullscreen();
+          }
+
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(()=>{});
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen().catch(()=>{});
+          } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen().catch(()=>{});
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen().catch(()=>{});
+          }
+        }
+      </script>
     </svg>
+
   </body>
 </html>
